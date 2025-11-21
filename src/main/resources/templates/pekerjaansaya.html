@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" th:href="@{/css/dashboardstyle.css}">
+    <link rel="stylesheet" th:href="@{/css/pekerjaansayastyle.css}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <body>
@@ -19,7 +19,7 @@
             <!-- end top -->
 
             <div class="sidebar">
-                <a href="@{/dashboard}">
+                <a th:href="@{/dashboard}">
                     <span class="material-symbols-sharp"> grid_view </span>
                     <h3>Dashboard</h3>
                 </a>
@@ -46,6 +46,81 @@
                 </a>
             </div>
          </aside>
+
+         <!-- Main Content -->
+        <main class="content">
+            <h1>Riwayat Pekerjaan</h1>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <!-- Tab Dilamar -->
+                <div class="job-list" id="tab-dilamar">
+                    <div th:each="app : ${dilamarList}" class="job-card">
+                        <h3 th:text="${app.job.title}"></h3>
+                        <p th:text="${app.job.location}"></p>
+                        <button class="detail-btn">Lihat detail</button>
+                    </div>
+                </div>
+
+                <!-- Tab Diterima -->
+                <div class="job-list" id="tab-diterima" style="display:none">
+                    <div th:each="app : ${diterimaList}" class="job-card">
+                        <h3 th:text="${app.job.title}"></h3>
+                        <p th:text="${app.job.location}"></p>
+                        <button class="detail-btn">Lihat detail</button>
+                    </div>
+                </div>
+
+                <!-- Tab Selesai -->
+                <div class="job-list" id="tab-selesai" style="display:none">
+                    <div th:each="app : ${selesaiList}" class="job-card">
+                        <h3 th:text="${app.job.title}"></h3>
+                        <p th:text="${app.job.location}"></p>
+                        <button class="detail-btn">Lihat detail</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job List -->
+            <div class="job-list">
+                <div class="job-card" th:each="app : ${applications}">
+                    <div>
+                        <h3 th:text="${app.job.title}"></h3>
+                        <p th:text="${app.job.location}"></p>
+                    </div>
+
+                    <button class="detail-btn"
+                            th:onclick="'location.href=\'/job/' + ${app.job.id} + '\';'">
+                        Lihat detail
+                    </button>
+                </div>
+
+            </div>
+
+        </main>
     </div>
+
+<script>
+const tabs = document.querySelectorAll('.tab');
+const lists = {
+    "Dilamar": document.getElementById('tab-applied'),
+    "Diterima": document.getElementById('tab-accepted'),
+    "Selesai": document.getElementById('tab-finished')
+};
+
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+
+        // aktifkan tab yang diklik
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // tampilkan list yang sesuai
+        Object.values(lists).forEach(div => div.style.display = 'none');
+        lists[tab.textContent].style.display = 'block';
+    });
+});
+</script>
+
 </body>
 </html>
