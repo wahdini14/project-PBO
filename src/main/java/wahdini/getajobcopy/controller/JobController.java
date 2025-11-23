@@ -76,6 +76,9 @@ public class JobController {
             @RequestParam String title,
             @RequestParam String location,
             @RequestParam String price,
+            @RequestParam String duration,
+            @RequestParam String kategori,
+            @RequestParam String phone,
             @RequestParam(required = false) String description,
             HttpSession session,
             Model model) {
@@ -83,11 +86,10 @@ public class JobController {
         String username = (String) session.getAttribute("username");
         User user = userRepository.findByUsername(username);
 
-        Job job = new Job(title, location, price, description, user);
+        Job job = new Job(title, location, price, description, duration, kategori, phone, user);
         jobRepository.save(job);
 
-        model.addAttribute("successMessage", "Pekerjaan berhasil ditambahkan!");
-        return "tambahpekerjaan";
+        return "redirect:/tambahpekerjaan?success=true";
     }
 
     // === API LIST JOB ===

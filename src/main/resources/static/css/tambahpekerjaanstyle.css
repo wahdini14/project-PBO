@@ -232,6 +232,7 @@ aside .sidebar a:hover span{
 
 .card.center {
     text-align: center;
+    padding-bottom: 40px;
 }
 
 /* Table */
@@ -336,6 +337,11 @@ textarea {
 
 .col {
     flex: 1;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Success icon */

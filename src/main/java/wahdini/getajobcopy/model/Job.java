@@ -14,6 +14,9 @@ public class Job {
     private String location;
     private String price;
     private String description;
+    private String duration;
+    private String kategori;
+    private String phone;
 
     // === RELASI KE USER PEMBUAT JOB ===
     @ManyToOne
@@ -22,11 +25,14 @@ public class Job {
 
     public Job() {}
 
-    public Job(String title, String location, String price, String description, User user) {
+    public Job(String title, String location, String price, String description, String duration, String kategori, String phone, User user) {
         this.title = title;
         this.location = location;
         this.price = price;
         this.description = description;
+        this.duration = duration;
+        this.kategori = kategori;
+        this.phone = phone;
         this.user = user;
     }
 
@@ -49,6 +55,18 @@ public class Job {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public String getKategori() {
+        return kategori;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     public User getUser() {
@@ -74,6 +92,18 @@ public class Job {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public void setKategori(String kategori) {
+        this.kategori = kategori;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setUser(User user) {

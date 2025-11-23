@@ -48,12 +48,12 @@
     </aside>
 
     <!-- Popup Notifikasi -->
-    <div class="popup-overlay" th:if="${successMessage}">
+    <!-- <div class="popup-overlay" th:if="${successMessage}">
         <div class="popup-box">
             <p th:text="${successMessage}"></p>
             <button onclick="closePopup()">OK</button>
         </div>
-    </div>
+    </div> -->
     <!-- POP UP NOTIFICATION END HERE -->
 
     <!-- PAGE 1 — JOB BOARD -->
@@ -92,48 +92,49 @@
     <!-- PAGE 2 — FORM -->
     <div class="page" id="page2">
         <div class="card">
+            <form action="/jobs/add" method="post" id="jobForm">
+                <h2>Nama Pekerjaan</h2>
+                <input type="text" name="title" placeholder="Contoh: Bersih-bersih rumah, Montir motor, dll" required>
 
-            <h2>Nama Pekerjaan</h2>
-            <input type="text" placeholder="Contoh: Bersih-bersih rumah, Montir motor, dll">
+                <div class="row">
+                    <div class="col">
+                        <label>Lokasi</label>
+                        <input type="text" name="location" placeholder="Kota/Kecamatan" required>
+                    </div>
 
-            <div class="row">
-                <div class="col">
-                    <label>Lokasi</label>
-                    <input type="text" placeholder="Kota/Kecamatan">
+                    <div class="col">
+                        <label>Upah harian (Rp)</label>
+                        <input type="text" name="price" placeholder="Contoh: Rp100.000" required>
+                    </div>
                 </div>
 
-                <div class="col">
-                    <label>Upah harian (Rp)</label>
-                    <input type="text" placeholder="Contoh: Rp100.000">
+                <div class="row">
+                    <div class="col">
+                        <label>Durasi / waktu kerja</label>
+                        <input type="text" name="duration" placeholder="Contoh: 2 jam" required>
+                    </div>
+
+                    <div class="col">
+                        <label>Kategori</label>
+                        <select name="kategori" required>
+                            <option value="">Pilih Kategori</option>
+                            <option>Kebersihan</option>
+                            <option>Perbaikan</option>
+                            <option>Angkut Barang</option>
+                            <option>Daur Ulang</option>
+                            <option>Jasa Belanja</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col">
-                    <label>Durasi / waktu kerja</label>
-                    <input type="text" placeholder="Contoh: 2 jam">
-                </div>
+                <label>Deskripsi</label>
+                <textarea name="description" placeholder="Jelaskan tugas, kebutuhan, syarat, dan jam kerja." required></textarea>
 
-                <div class="col">
-                    <label>Kategori</label>
-                    <select>
-                        <option>Pilih Kategori</option>
-                        <option>Kebersihan</option>
-                        <option>Perbaikan</option>
-                        <option>Angkut Barang</option>
-                        <option>Daur Ulang</option>
-                        <option>Jasa Belanja</option>
-                    </select>
-                </div>
-            </div>
+                <label>Kontak</label>
+                <input name="phone" type="text" placeholder="Email atau nomor telepon" required>
 
-            <label>Deskripsi</label>
-            <textarea placeholder="Jelaskan tugas, kebutuhan, syarat, dan jam kerja."></textarea>
-
-            <label>Kontak</label>
-            <input type="text" placeholder="Email atau nomor telepon">
-
-            <button class="btn-primary" onclick="goTo(3)">Kirim</button>
+                <button id="btnKirim" class="btn-primary" disabled onclick="goTo(3)">Kirim</button>
+            </form>
 
         </div>
     </div>
@@ -144,23 +145,48 @@
             <div class="success-icon">✔</div>
             <h2>Pekerjaan berhasil di posting!</h2>
             <p style="margin-bottom: 30px;">
-                Lowongan Anda kini tampil di daftar pekerjaan umum dan dapat dilihat oleh semua freelancer.
+                Lowongan Anda kini tampil di daftar pekerjaan umum dan dapat dilihat oleh semua orang.
             </p>
 
-            <button class="btn-primary" onclick="goTo(1)">Lihat pekerjaan saya</button><br><br>
-            <button class="btn-secondary" onclick="goTo(1)">Kembali ke beranda</button>
+            <a class="btn-primary" th:href="@{/dashboard}">Kembali ke Dashboard</a><br><br><br>
+            <a class="btn-secondary" th:href="@{/tambahpekerjaan}">Tambahkan pekerjaan lagi</a>
+
         </div>
     </div>
 </div>
 
 <script>
-function closePopup() {
-    document.querySelector('.popup-overlay').style.display = 'none';
+    const form = document.getElementById("jobForm");
+    const btnKirim = document.getElementById("btnKirim");
+    
+    function validateForm() {
+        // cek semua input/select/textarea yang required
+        const fields = form.querySelectorAll("[required]");
+        let valid = true;
+        
+        fields.forEach(field => {
+            if (!field.value.trim()) valid = false;
+        });
+        
+        btnKirim.disabled = !valid;
     }
-function goTo(pageNumber) {
-        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-        document.getElementById("page" + pageNumber).classList.add("active");
+
+    // jalankan validasi setiap ada perubahan data
+    form.addEventListener("input", validateForm);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("success") === "true") {
+        goTo(3);
     }
+
+    // function closePopup() {
+    //     document.querySelector('.popup-overlay').style.display = 'none';
+    //     }
+
+    function goTo(pageNumber) {
+            document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+            document.getElementById("page" + pageNumber).classList.add("active");
+        }
 </script>
 
 </body>
