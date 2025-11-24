@@ -66,6 +66,7 @@
                 <th>Budget</th>
                 <th>Tanggal Posting</th>
                 <th>Status</th>
+                <th>Keterangan</th>
             </tr>
 
             <tr th:each="job : ${jobs}">
@@ -74,8 +75,14 @@
                 <td th:text="${job.price}"></td>
                 <td th:text="${#temporals.format(job.postedDate, 'dd/MM/yyyy HH:mm')}"></td>
                 <td>
-                    <a th:href="@{/job/{id}(id=${job.id})}">
-                        <button class="btn-detail">Lihat Detail</button>
+                    <span class="status-badge" th:classappend="${job.status == 'FINISHED'} ? ' status-selesai' : ' status-berlangsung'"
+                          th:text="${job.status == 'FINISHED'} ? 'Selesai' : 'Aktif'"></span>
+                </td>
+                <td>
+                    <a th:href="@{/job/{id}/jobboarddetail(id=${job.id})}">
+                        <button class="btn-detail modern">
+                            <span>Lihat Detail</span>
+                        </button>
                     </a>
                 </td>
 

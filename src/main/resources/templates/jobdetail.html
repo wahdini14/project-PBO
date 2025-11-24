@@ -105,7 +105,10 @@
 
         <div class="posted-row">
             <div class="avatar">
-                <span class="material-symbols-sharp">account_circle</span>
+                <a th:href="@{/profile/{id}(id=${postedBy.id})}">
+                    <img th:if="${postedBy.profileImage != null}" th:src="@{'/uploads/' + ${postedBy.profileImage}}" alt="Profil" class="profile-photo-small" />
+                    <span th:if="${postedBy.profileImage == null}" class="material-symbols-sharp">account_circle</span>
+                </a>
             </div>
 
             <div class="user-info">

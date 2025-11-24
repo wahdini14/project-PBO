@@ -41,7 +41,7 @@
                 <h3>Pesan</h3>
             </a>
 
-            <a th:href="@{/profile}" class="active">
+            <a th:href="@{/profile}" th:classappend="${isOwner} ? 'active' : ''">
                 <span class="material-symbols-sharp"> account_circle </span>
                 <h3>Profil</h3>
             </a>
@@ -73,10 +73,7 @@
                     <h1 th:text="${user.fullName}">Nama</h1>
                     <h3 th:text="${user.job}">Pekerjaan</h3>
 
-                    <div class="rating">
-                        <span th:text="${user.rating != null ? user.rating : '0.0'}">0.0</span>
-                        <span class="stars">★★★★★</span>
-                    </div>
+                    <!-- Rating removed as requested -->
 
                     <p class="desc" th:text="${user.description}">
                         Deskripsi diri belum diisi.
@@ -84,7 +81,7 @@
                 </div>
         </div>
 
-    <a th:href="@{/profile/edit}" class="edit-btn">Edit Profil</a>
+    <a th:if="${isOwner}" th:href="@{/profile/edit}" class="edit-btn">Edit Profil</a>
 
 </div>
 

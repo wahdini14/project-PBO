@@ -287,6 +287,14 @@ aside .sidebar a:hover span{
     font-size: 50px;
 }
 
+.profile-photo-small {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: inline-block;
+}
+
 .msg-btn {
     background: #7286d3;
     color: white;

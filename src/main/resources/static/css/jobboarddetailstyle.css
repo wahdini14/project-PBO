@@ -1,0 +1,76 @@
+/* Basic styles for jobboarddetail page — adjust to match your theme */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f7fb;
+  color: #222;
+  margin: 0;
+  padding: 20px;
+}
+.container { max-width: 1000px; margin: 0 auto; }
+.card { background: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); padding: 20px; }
+h1 { margin-top: 0; }
+table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+th, td { padding: 10px; border: 1px solid #e6e9ef; text-align: left; }
+th { background: #fafafa; }
+button { background: #1976d2; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
+button:hover { background: #115293; }
+a button { text-decoration: none; }
+form { display: inline; }
+/* Action buttons (view / accept / reject) */
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  margin-left: 8px;
+  transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+}
+.btn-action:focus { outline: none; }
+.btn-view {
+  background: #e2e8f0; /* slate-200 */
+  color: #0f172a; /* slate-900 */
+  box-shadow: 0 2px 6px rgba(2,6,23,0.04);
+  border: 1px solid rgba(15,23,42,0.06);
+}
+.btn-view:hover { transform: translateY(-2px); }
+.btn-accept {
+  background: linear-gradient(135deg,#10b981 0%,#059669 100%); /* green */
+  box-shadow: 0 6px 18px rgba(4,120,87,0.12);
+}
+.btn-accept:hover { transform: translateY(-2px); }
+.btn-reject {
+  background: linear-gradient(135deg,#ef4444 0%,#dc2626 100%); /* red */
+  box-shadow: 0 6px 18px rgba(220,38,38,0.12);
+}
+.btn-reject:hover { transform: translateY(-2px); }
+/* Modern button used in jobboarddetail template */
+.btn-modern {
+  display: inline-block;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(16,24,40,0.15);
+  transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+}
+.btn-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(16,24,40,0.2);
+  opacity: 0.98;
+}
+.btn-modern:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(16,24,40,0.12);
+}
+@media (max-width: 680px) {
+  th, td { font-size: 14px; }
+  button { padding: 6px 8px; }
+}

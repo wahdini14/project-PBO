@@ -1,7 +1,7 @@
 // ======== Data Dummy Awal (bisa diganti dari backend nanti) ========
 let pekerjaanDilamar = 3;
 let pekerjaanAktif = 2;
-let rating = 4.8;
+// rating removed
 
 // Array untuk menampung daftar pekerjaan terbaru
 let daftarPekerjaan = [
@@ -14,7 +14,7 @@ function renderDashboard() {
     // Update statistik
     document.getElementById("pekerjaanDilamar").innerText = pekerjaanDilamar;
     document.getElementById("pekerjaanAktif").innerText = pekerjaanAktif;
-    document.getElementById("ratingUser").innerText = rating.toFixed(1);
+    // rating removed
 
     // Tampilkan pekerjaan terbaru
     const jobContainer = document.querySelector(".latest-jobs .job-list");
@@ -45,8 +45,7 @@ function lamarPekerjaan() {
 }
 
 function ubahRating(nilaiBaru) {
-    rating = nilaiBaru;
-    renderDashboard();
+    // rating removed
 }
 
 function openLogoutPopup() {

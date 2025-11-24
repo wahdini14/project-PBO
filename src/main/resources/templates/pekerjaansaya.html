@@ -83,6 +83,9 @@
                         th:onclick="'location.href=\'/job/' + ${app.job.id} + '\';'">
                     Lihat detail
                 </button>
+                <form th:action="@{/pekerjaansaya/{appId}/finish(appId=${app.id})}" method="post" style="display:inline; margin-left:8px;">
+                    <button type="submit" class="detail-btn">Tandai Telah Selesai</button>
+                </form>
             </div>
         </div>
 

@@ -26,7 +26,6 @@ public class User {
     @Column(columnDefinition = "TEXT")
     private String description;     
 
-    private Double rating;          
     private String profileImage;    
 
     // =============================
@@ -68,8 +67,7 @@ public class User {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public Double getRating() { return rating; }
-    public void setRating(Double rating) { this.rating = rating; }
+    // rating removed
 
     public String getProfileImage() { return profileImage; }
     public void setProfileImage(String profileImage) { this.profileImage = profileImage; }

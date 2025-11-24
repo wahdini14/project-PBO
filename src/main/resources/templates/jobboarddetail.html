@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Board Detail - Pelamar</title>
+    <link rel="stylesheet" th:href="@{/css/jobboarddetailstyle.css}">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1 th:text="${job.title}">Judul Pekerjaan</h1>
+        <p>Daftar pelamar untuk pekerjaan ini:</p>
+
+        <table border="1">
+            <tr>
+                <th>Nama Pelamar</th>
+                <th>Tanggal Melamar</th>
+                <th>Status</th>
+                <th>Aksi</th>
+            </tr>
+            <tr th:each="app : ${applicants}">
+                <td th:text="${app.user.fullName} ?: ${app.user.username}"></td>
+                <td th:text="${#temporals.format(app.appliedDate, 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${app.status}"></td>
+                <td>
+                    <a th:href="@{/profile/{id}(id=${app.user.id})}" class="btn-action btn-view" style="margin-left:0">Lihat Profil</a>
+
+                    <form th:action="@{/job/{jobId}/applicants/{appId}/accept(jobId=${job.id},appId=${app.id})}" method="post" style="display:inline">
+                        <button type="submit" class="btn-action btn-accept">Terima</button>
+                    </form>
+
+                    <form th:action="@{/job/{jobId}/applicants/{appId}/reject(jobId=${job.id},appId=${app.id})}" method="post" style="display:inline">
+                        <button type="submit" class="btn-action btn-reject">Tolak</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+        <p style="margin-top:20px;"><a th:href="@{/dashboard}" class="btn-modern">Kembali ke Dashboard</a></p>
+    </div>
+</div>
+</body>
+</html>

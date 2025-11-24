@@ -268,16 +268,7 @@ aside .sidebar a:hover span{
     float: right;
 }
 
-.rating {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.stars {
-    color: rgb(68, 67, 62);
-    font-size: 18px;
-}
+/* Rating styles removed */
 
 .desc {
     margin-top: 10px;

@@ -77,4 +77,71 @@ public class DetailPekerjaanController {
 
         return "jobdetail";
     }
+
+    // === HALAMAN JOB BOARD DETAIL (DAFTAR PELAMAR UNTUK PEMILIK) ===
+    @GetMapping("/{id}/jobboarddetail")
+    public String showJobBoardDetail(@PathVariable Long id, Model model, HttpSession session) {
+        Job job = jobRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Job tidak ditemukan"));
+
+        String username = (String) session.getAttribute("username");
+        if (username == null) return "redirect:/";
+
+        User currentUser = userRepository.findByUsername(username);
+
+        // Hanya pemilik pekerjaan boleh melihat list pelamar
+        if (currentUser == null || !job.getUser().getId().equals(currentUser.getId())) {
+            return "redirect:/";
+        }
+
+        java.util.List<JobApplication> applicants = jobApplicationRepository.findByJob(job);
+
+        model.addAttribute("job", job);
+        model.addAttribute("applicants", applicants);
+
+        return "jobboarddetail";
+    }
+
+    @PostMapping("/{jobId}/applicants/{appId}/accept")
+    public String acceptApplicant(@PathVariable Long jobId, @PathVariable Long appId, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) return "redirect:/";
+
+        User currentUser = userRepository.findByUsername(username);
+
+        JobApplication app = jobApplicationRepository.findById(appId)
+                .orElseThrow(() -> new IllegalArgumentException("Lamaran tidak ditemukan"));
+
+        if (!app.getJob().getId().equals(jobId)) return "redirect:/";
+        if (!app.getJob().getUser().getId().equals(currentUser.getId())) return "redirect:/";
+
+        app.setStatus("ACCEPTED");
+        jobApplicationRepository.save(app);
+
+        // Tandai job sebagai assigned/selesai sehingga tidak tampil di job board
+        Job job = app.getJob();
+        job.setStatus("ASSIGNED");
+        jobRepository.save(job);
+
+        return "redirect:/job/" + jobId + "/jobboarddetail";
+    }
+
+    @PostMapping("/{jobId}/applicants/{appId}/reject")
+    public String rejectApplicant(@PathVariable Long jobId, @PathVariable Long appId, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) return "redirect:/";
+
+        User currentUser = userRepository.findByUsername(username);
+
+        JobApplication app = jobApplicationRepository.findById(appId)
+                .orElseThrow(() -> new IllegalArgumentException("Lamaran tidak ditemukan"));
+
+        if (!app.getJob().getId().equals(jobId)) return "redirect:/";
+        if (!app.getJob().getUser().getId().equals(currentUser.getId())) return "redirect:/";
+
+        app.setStatus("REJECTED");
+        jobApplicationRepository.save(app);
+
+        return "redirect:/job/" + jobId + "/jobboarddetail";
+    }
 }

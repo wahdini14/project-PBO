@@ -22,8 +22,8 @@ public String dashboard(HttpSession session, Model model) {
 
     model.addAttribute("username", username);
 
-    // Tambahkan list job terbaru
-    model.addAttribute("jobs", jobRepository.findAll());
+    // Tambahkan list job terbaru — hanya tampilkan job yang masih ACTIVE
+    model.addAttribute("jobs", jobRepository.findByStatus("ACTIVE"));
 
     return "dashboard";
 }

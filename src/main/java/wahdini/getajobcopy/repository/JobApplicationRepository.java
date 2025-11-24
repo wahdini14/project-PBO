@@ -15,6 +15,8 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
 
     List<JobApplication> findByUserAndJob(User user, Job job); // untuk cegah double apply
 
+    List<JobApplication> findByJob(Job job);
+
     boolean existsByUserAndJob(User user, Job job);
 
 }

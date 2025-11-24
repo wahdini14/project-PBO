@@ -6,4 +6,7 @@ import wahdini.getajobcopy.model.Job;
 public interface JobRepository extends JpaRepository<Job, Long> {
     // Ambil semua job berdasarkan user
     java.util.List<Job> findByUser(wahdini.getajobcopy.model.User user);
+
+    // Ambil job berdasarkan status (mis. "ACTIVE")
+    java.util.List<Job> findByStatus(String status);
 }

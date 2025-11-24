@@ -255,6 +255,46 @@ td {
     border-bottom: 1px solid #e1e1e1;
 }
 
+/* Status badges */
+
+/* Unified badge base so all status badges are the same size */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 110px; /* fixed minimum width so Selesai/Aktif same width */
+    padding: 6px 12px;
+    border-radius: 999px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.status-selesai { background: #2ecc71; }
+.status-berlangsung { background: #ff5c5c; }
+
+/* Modern detail button */
+.btn-detail.modern {
+    background: linear-gradient(135deg, #5b6bc5, #7380ec);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 6px 18px rgba(115,128,236,0.18);
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+.btn-detail.modern:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(115,128,236,0.22);
+}
+.btn-detail.modern span { display:inline-block; }
+
+/* Table row hover */
+tr:hover td { background: #fbfbff; }
+
 /* Buttons */
 .btn-primary {
     background: #5b6bc5;
